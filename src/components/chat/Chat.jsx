@@ -4,13 +4,14 @@ import { useState, useEffect, useRef } from "react";
 
 import {query, collection, orderBy, onSnapshot} from 'firebase/firestore';
 import { db } from "../../../firebase";
+import Message from "./Message";
 
 
 
 
 const Chat = () => {
     //creamos un estado para recuperar el chat desde la base de datos
-    const [message, setMessages] = useState([]);
+    const [messages, setMessages] = useState([]);
 
     //hacemos una llamada a la bd con un useEffet
     //creamos una variable le pasamos la query con parametro la collecion y hacemos llamado y el nombre de la collecion y por ultimo el order para ordernarlo por tiempo
@@ -22,15 +23,25 @@ const Chat = () => {
         const unsubscribe = onSnapshot(newQuery, (querySnapshot)=>{
             let currentMessages = [];
             querySnapshot.forEach(item =>{
-                console.log(item)
+                currentMessages.push({ content: item.data(), id:item.id})
+                setMessages(currentMessages);
             })
+
+            return unsubscribe;
         })
     })
 
 
   return (
     <section className="chat-content">
-        <h4>this is a message</h4>
+       
+        {
+            messages && messages.map(item => (
+                <Message
+                key={item.id}
+                message={item.content}/>
+            ))
+        }
     </section>
   )
 }
