@@ -1,49 +1,39 @@
+import { useState, useEffect } from "react";
 
-import { useState, useEffect, useRef } from "react";
-
-
-import {query, collection, orderBy, onSnapshot} from 'firebase/firestore';
+import { query, collection, orderBy, onSnapshot } from "firebase/firestore";
 import { db } from "../../../firebase";
 import Message from "./Message";
 
-
-
-
 const Chat = () => {
-    //creamos un estado para recuperar el chat desde la base de datos
-    const [messages, setMessages] = useState([]);
+  //creamos un estado para recuperar el chat desde la base de datos
+  const [messages, setMessages] = useState([]);
 
-    //hacemos una llamada a la bd con un useEffet
-    //creamos una variable le pasamos la query con parametro la collecion y hacemos llamado y el nombre de la collecion y por ultimo el order para ordernarlo por tiempo
-    useEffect(()=>{
-        const newQuery = query(collection(db, 'messages'),orderBy('timestamp'));
+  //hacemos una llamada a la bd con un useEffet
+  //creamos una variable le pasamos la query con parametro la collecion y hacemos llamado y el nombre de la collecion y por ultimo el order para ordernarlo por tiempo
+  useEffect(() => {
+    const newQuery = query(collection(db, "messages"), orderBy("timestamp"));
 
-        //ahora creamos otra constante le pasamos el onsnapshot para recuperar el newQuery
-        //con el parametro de querysnapshot recuperamos toda la informacion
-        const unsubscribe = onSnapshot(newQuery, (querySnapshot)=>{
-            let currentMessages = [];
-            querySnapshot.forEach(item =>{
-                currentMessages.push({ content: item.data(), id:item.id})
-                setMessages(currentMessages);
-            })
+    //ahora creamos otra constante le pasamos el onsnapshot para recuperar el newQuery
+    //con el parametro de querysnapshot recuperamos toda la informacion
+    const unsubscribe = onSnapshot(newQuery, (querySnapshot) => {
+      let currentMessages = [];
+      querySnapshot.forEach((item) => {
+        currentMessages.push({ content: item.data(), id: item.id });
+        setMessages(currentMessages);
+      });
 
-            return unsubscribe;
-        })
-    })
-
+      return unsubscribe;
+    });
+  });
 
   return (
-    <section className="chat-content">
-       
-        {
-            messages && messages.map(item => (
-                <Message
-                key={item.id}
-                message={item.content}/>
-            ))
-        }
+    <section className="chat-content mt-5">
+      {messages &&
+        messages.map((item) => (
+          <Message key={item.id} message={item.content} />
+        ))}
     </section>
-  )
-}
+  );
+};
 
-export default Chat
+export default Chat;
