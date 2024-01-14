@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { query, collection, orderBy, onSnapshot } from "firebase/firestore";
 import { db } from "../../../firebase";
 import Message from "./Message";
+import SendMessages from "./SendMessages";
 
 const Chat = () => {
   //creamos un estado para recuperar el chat desde la base de datos
@@ -18,12 +19,13 @@ const Chat = () => {
     const unsubscribe = onSnapshot(newQuery, (querySnapshot) => {
       let currentMessages = [];
       querySnapshot.forEach((item) => {
+                           //recuperamos le objeto  //recuperamos el id
         currentMessages.push({ content: item.data(), id: item.id });
-        setMessages(currentMessages);
       });
+      setMessages(currentMessages);
 
-      return unsubscribe;
-    });
+    },[]);
+    return unsubscribe;
   });
 
   return (
@@ -32,6 +34,7 @@ const Chat = () => {
         messages.map((item) => (
           <Message key={item.id} message={item.content} />
         ))}
+        <SendMessages/>
     </section>
   );
 };

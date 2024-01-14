@@ -14,6 +14,7 @@ const Login = () => {
     <>
     <button className="btn-login"
     onClick={handleLogin}>
+      <i className="bi bi-google"></i>
         Sing in with google
     </button>
     </>

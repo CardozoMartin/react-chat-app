@@ -7,10 +7,13 @@ function App() {
   
 
   return (
-    <>
-     <Chat/>
+    
+    <section className='d-flex gap-3'>
+
      <User/>
-    </>
+     <Chat/>
+    </section>
+    
   )
 }
 

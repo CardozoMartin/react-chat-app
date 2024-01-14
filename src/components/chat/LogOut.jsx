@@ -7,9 +7,11 @@ const LogOut = () => {
         signOut(auth)
     }
   return (
-    <button className='btn-login btn-logout mt-2' onClick={logOut}>
-        LogOut
+    <>
+    <button className='btn-login btn-logout' onClick={logOut}>
+    <i className="bi bi-google fs-5"></i>  LogOut
     </button>
+    </>
   )
 }
 
