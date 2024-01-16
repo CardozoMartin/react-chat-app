@@ -5,6 +5,7 @@ import { db } from "../../../firebase";
 import Message from "./Message";
 import SendMessages from "./SendMessages";
 
+
 const Chat = () => {
   //creamos un estado para recuperar el chat desde la base de datos
   const [messages, setMessages] = useState([]);

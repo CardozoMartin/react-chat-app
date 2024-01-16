@@ -29,7 +29,7 @@ const Message = ({ message }) => {
       <article className={newStyles}>
           <div>
               <div className='text-message'>
-                  <p className="text">{ message.text }</p>
+                  <p className="text mt-2">{ message.text }</p>
               </div>
               <p className="user">{`${newDate} - ${time}`}</p>
           </div>

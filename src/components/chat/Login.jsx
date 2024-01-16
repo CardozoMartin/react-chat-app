@@ -12,10 +12,10 @@ const Login = () => {
     }
   return (
     <>
-    <button className="btn-login"
+    <button className="btn btn-primary"
     onClick={handleLogin}>
-      <i className="bi bi-google"></i>
-        Sing in with google
+      <i className="bi bi-google me-2"></i> 
+         Sing in with google
     </button>
     </>
   )
